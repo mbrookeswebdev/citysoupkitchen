@@ -8,6 +8,9 @@ A shopping application where customers can purchase products for collection or d
 
 Deployed for demonstration purposes on DigitalOcean through Cloudways. 
 
-[Project screenshots.](http://phpstack-228259-800159.cloudwaysapps.com/screenshots/csc.html)
+
+![City Soup Kitchen](http://phpstack-228259-800159.cloudwaysapps.com/screenshots/csc.png)
+
+[More screenshots.](http://phpstack-228259-800159.cloudwaysapps.com/screenshots/csc.html)
 
 If you would like to see it live, please send me a message.
