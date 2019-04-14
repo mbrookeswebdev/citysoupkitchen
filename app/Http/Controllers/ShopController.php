@@ -118,8 +118,6 @@ class ShopController extends Controller
         $orderNo = $order->id;
         //create an order item out of each ordered product
         foreach ($shoppingCart->products as $item) {
-            //dd($item['product']->title);
-            //dd($item['quantity']);
             $orderItem = new OrderItem(array(
                 'order_id' => $orderNo,
                 'product_id' => $item['product']->id,
@@ -133,7 +131,7 @@ class ShopController extends Controller
         return view('shop.success')->with('status', 'Your reference number is: ' . $order->id);
     }
 
-    // display all incomplete orders the user created
+    // display all user's orders
     public function displayOrders ()
     {
         $id = Auth::id();
