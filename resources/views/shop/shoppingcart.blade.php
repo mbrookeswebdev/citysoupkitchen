@@ -56,7 +56,7 @@
                             <form method="post" action="/re-calculate">
                                 @csrf
                                 <input type="checkbox" name="delivery"
-                                       @if ($shoppingCart->delivery == true) checked @endif> Add delivery (£2.99)
+                                       @if ($shoppingCart->getDelivery() == true) checked @endif> Add delivery (£2.99)
                                 <p>
                                     <button type="submit" class="btn btn-warning mt-3" id="recalculateButton">
                                         Re-calculate
