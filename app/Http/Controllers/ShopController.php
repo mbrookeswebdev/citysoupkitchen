@@ -25,7 +25,8 @@ class ShopController extends Controller
     {
         if ($request->session()->has('shoppingCart')) {
             $shoppingCart = session('shoppingCart');
-            return view('shop.shoppingcart', ['shoppingCart' => $shoppingCart, 'products' => $shoppingCart->products, 'totalPrice' => $shoppingCart->totalPrice, 'message' => 'You have deleted all products.']);
+            return view('shop.shoppingcart', ['shoppingCart' => $shoppingCart, 'products' => $shoppingCart->getProducts(),
+                'totalPrice' => $shoppingCart->getTotalPrice(), 'message' => 'You have deleted all products.']);
         } else {
             return view('shop.shoppingcart')->with('message', 'You have no products selected.');
         }
@@ -83,14 +84,15 @@ class ShopController extends Controller
     {
         $shoppingCart = $request->session()->get('shoppingCart');
 
-        if ($request->has('delivery') && $shoppingCart->totalPrice != 0) {
+        if ($request->has('delivery') && $shoppingCart->getTotalPrice() != 0) {
             $deliveryAdded = true;
             $shoppingCart->reCalculate($deliveryAdded);
         } else {
             $deliveryAdded = false;
             $shoppingCart->reCalculate($deliveryAdded);
         }
-        return view('shop.shoppingcart', ['products' => $shoppingCart->products, 'totalPrice' => $shoppingCart->totalPrice, 'shoppingCart' => $shoppingCart]);
+        return view('shop.shoppingcart', ['products' => $shoppingCart->getProducts(),
+            'totalPrice' => $shoppingCart->getTotalPrice(), 'shoppingCart' => $shoppingCart]);
     }
 
     // make a payment for selected products (no pay provider implemented)
@@ -100,7 +102,7 @@ class ShopController extends Controller
         //get shopping cart from session
         $shoppingCart = $request->session()->get('shoppingCart');
         //set collection/delivery, depending on user choice
-        if ($shoppingCart->delivery == true) {
+        if ($shoppingCart->getDelivery() == true) {
             $method = "delivery";
         } else {
             $method = "collection";
@@ -110,14 +112,14 @@ class ShopController extends Controller
         $order = new Order(array(
             'user_id' => $id,
             'method' => $method,
-            'totalPrice' => $shoppingCart->totalPrice,
+            'totalPrice' => $shoppingCart->getTotalPrice(),
             'status' => 'pending'
         ));
         $order->save();
         //get a new order id
         $orderNo = $order->id;
         //create an order item out of each ordered product
-        foreach ($shoppingCart->products as $item) {
+        foreach ($shoppingCart->getProducts() as $item) {
             $orderItem = new OrderItem(array(
                 'order_id' => $orderNo,
                 'product_id' => $item['product']->id,
