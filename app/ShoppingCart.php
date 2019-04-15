@@ -6,10 +6,34 @@ use Illuminate\Support\Facades\DB;
 
 class ShoppingCart
 {
-    public $products = null;
-    public $totalQuantity = 0;
+    private $products = null;
+    private $totalQuantity = 0;
     public $totalPrice = 0;
-    public $delivery = null;
+    private $delivery = null;
+
+    /**
+     * @return null
+     */
+    public function getProducts ()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalPrice (): float
+    {
+        return $this->totalPrice;
+    }
+
+    /**
+     * @return null
+     */
+    public function getDelivery ()
+    {
+        return $this->delivery;
+    }
 
     public function addProduct ($id)
     {
