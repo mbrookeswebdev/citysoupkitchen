@@ -160,7 +160,6 @@ class ShopController extends Controller
     {
         $order = Order::find($id);
         $orderTotalPrice = $order->totalPrice;
-//        $orderItems = Order::all()->find($id)->orderItem;
         $orderStatus = $order->status;
         $orderItems = DB::table('order_items')
             ->join('products', 'order_items.product_id', '=', 'products.id')->where('order_items.order_id', '=', $id)
