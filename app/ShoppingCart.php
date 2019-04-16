@@ -8,7 +8,7 @@ class ShoppingCart
 {
     private $products = null;
     private $totalQuantity = 0;
-    public $totalPrice = 0;
+    private $totalPrice = 0;
     private $delivery = null;
 
     /**
