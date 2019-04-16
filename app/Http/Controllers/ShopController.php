@@ -119,6 +119,7 @@ class ShopController extends Controller
         //get a new order id
         $orderNo = $order->id;
         //create an order item out of each ordered product
+
         foreach ($shoppingCart->getProducts() as $item) {
             $orderItem = new OrderItem(array(
                 'order_id' => $orderNo,
@@ -168,7 +169,7 @@ class ShopController extends Controller
         return view('shop.showorder', ['order' => $order, 'orderItems' => $orderItems, 'orderStatus' => $orderStatus, 'orderTotalPrice' => $orderTotalPrice, 'message' => 'Please review below the product(s) you ordered:']);
     }
 
-    // delete order (only possible if it's status changed to 'completed')
+    // delete order (only possible if it's status was changed to 'completed')
     public function deleteOrder ($id)
     {
         $order = Order::find($id);
